@@ -1,0 +1,40 @@
+<form [formGroup]="registerForm" (ngSubmit)="handleSubmit()" style="max-width:500px;margin:auto" method="POST">
+    <h2>Register Form</h2>
+    <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" placeholder="Username" name="usrnm" formControlName="userName" >
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-envelope icon"></i>
+        <input class="input-field" type="text" placeholder="Email" name="email" formControlName="email">
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-key icon"></i>
+        <input class="input-field" type="password" placeholder="Password" name="psw" formControlName="password">
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-key icon"></i>
+        <input class="input-field" type="password" placeholder="Password" name="repsw" formControlName="confirmPassword">
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" placeholder="First Name" name="firstName" formControlName="firstName">
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-user icon"></i>
+        <input class="input-field" type="text" placeholder="Last name" name="lastName" formControlName="lastName" >
+    </div>
+
+    <div class="input-container">
+        <i class="fa fa-address-card-o icon"></i>
+        <input class="input-field" type="text" placeholder="Address" name="address" formControlName="address">
+    </div>
+
+    <button type="submit" class="btn">Register</button>
+</form>
+<footer></footer>

@@ -1,0 +1,113 @@
+<div class="backTopNav">
+    
+    <navbar></navbar>
+
+    <div id="container">
+
+        <div id="content">
+
+
+
+            <!-- put new button: Add Customer -->
+
+            <input type="button" value="Add Department"
+            (click) = "showCreateDepartment()" class="add-button" />
+
+            <!--  add our html table here -->
+
+            <table>
+                <tr>
+                    <th>Department Name</th>
+                    <th>Created By</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let department of departments | async" >
+                    <td>
+                        <span>{{department.name}}</span>
+                   </td>
+                    <td>
+                        <span>{{department.creatorName}}</span>
+                    </td>
+                    <td>
+                        <!-- display the update link -->
+                        <a (click) = "showUpdateDepartment(department.number)">Update</a>
+                        |
+                        <a (click) = "deleteDepartment(department.number)" > Delete</a>
+                    </td>
+
+                </tr>
+            </table>
+
+            <div *ngIf="isCreateDepartment">
+            <form class='formDiv' [formGroup]="postDepartmentForm" (ngSubmit)="handleSubmit()" method="POST">
+                <div class='formFieldBanner'>
+                    <h3>Create Department</h3>
+                </div>
+                <div class='formField'>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><label>Department Name:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Department Name"
+                                        name="name" formControlName="name"></td>
+                            </tr>
+    
+                            <tr>
+                                <td><label>Created By:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Creator Name" name="creatorName" formControlName="creatorName"></td>
+                            </tr>
+    
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="button" value="Cancel" class="save"
+                                    (click) = "cancelCreateDepartment()" />
+                                    <input type="submit" value="Save" class="save" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            </div>
+
+            <div *ngIf="isRecordEditable">
+                <form class='formDiv' (ngSubmit)="handleUpdate()" method="POST">
+                    <div class='formFieldBanner'>
+                        <h3>Update Department</h3>
+                    </div>
+                    <div class='formField'>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><label>Department Name:</label></td>
+                                    <td><input class="input-field" type="text" [(ngModel)]="updateDepartment.name" placeholder="Department Name"
+                                            name="name"></td>
+                                </tr>
+        
+                                <tr>
+                                    <td><label>Created By:</label></td>
+                                    <td><input class="input-field" type="text" [(ngModel)]="updateDepartment.creatorName" placeholder="Creator Name" name="creatorName"></td>
+                                </tr>
+        
+                                <tr>
+                                    <td><input type="hidden" [(ngModel)]="updateDepartment.number"  name="number"></td>
+                                    <td>
+                                        <input type="button" value="Cancel" class="save"
+                                        (click) = "cancelCreateDepartment()" />
+                                        <input type="submit" value="Save" class="save" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+                </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+<footer></footer>

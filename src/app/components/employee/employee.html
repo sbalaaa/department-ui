@@ -1,0 +1,218 @@
+<div class="backTopNav">
+    <navbar></navbar>
+
+    <div id="container">
+
+        <div id="content">
+
+            <!-- put new button: Add Employee -->
+
+            <input type="button" value="Add Employee"
+            (click) = "showCreateEmployee()" class="add-button" />
+
+            <!--  add our html table here -->
+
+            <table>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Hire Date</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let employee of employees | async">
+                    <td> {{ employee.firstName }} </td>
+                    <td> {{ employee.lastName }} </td>
+                    <td> {{ employee.gender }}</td>
+                    <td> {{ employee.age }}</td>
+                    <td> {{ employee.email }}</td>
+                    <td> {{ employee.phoneNumber }}</td>
+                    <td> {{ employee.hireDate }} </td>
+                    <td> {{ employee.salary }} </td>
+                    <td> {{ employee.departmentId.name }} </td>
+
+                    <td>
+                        <!-- display the update link -->
+                        <a (click) = "showUpdateEmployee(employee.employeeId)">Update</a>
+                        |
+                        <a (click) = "deleteEmployee(employee.employeeId)" > Delete</a>
+                    </td>
+
+                </tr>
+            </table>
+
+            <div *ngIf="isCreateEmployee">
+                <form class='formField' (ngSubmit)="handleSubmit()" method="POST">
+                    <div class='formFieldBanner'>
+                        <h3>Add Employee</h3>
+                    </div>
+                    <table>
+                        <tbody>
+                    
+                            <tr>
+                                <td><label>First Name:</label></td>
+                                <td><input class="input-field" type="text" placeholder="First Name" name="firstName"
+                                    [(ngModel)]="postEmployee.firstName"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Last Name:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Last Name" name="lastName"
+                                    [(ngModel)]="postEmployee.lastName"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Gender:</label></td>
+                                <td>
+                                    <select name="gender" [(ngModel)]="postEmployee.gender" id="gender">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Age:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Age" name="age"
+                                    [(ngModel)]="postEmployee.age"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Email:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Email" name="email"
+                                    [(ngModel)]="postEmployee.email"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Phone Number:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Phone Number" name="phoneNumber"
+                                    [(ngModel)]="postEmployee.phoneNumber">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Hire Date:</label></td>
+                                <td><input class="input-field" type="date" placeholder="Hire Date" name="hireDate" pattern="\d{2}-\d{2}-\d{4}"
+                                    [(ngModel)]="postEmployee.hireDate"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Salary:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Salary" name="salary"
+                                    [(ngModel)]="postEmployee.salary"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Department:</label></td>
+                                <td>
+                                    <select name="departmentNumber" [(ngModel)]="postEmployee.departmentNumber"  id="department">
+                                        <option  [value]="department.number" *ngFor="let department of departments">{{department.name}}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <input type="button" value="Cancel" class="save" (click) = "cancelCreateEmployee()"/>
+                                    <input type="submit" value="Save" class="save" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+            <div *ngIf="isRecordEditable">
+                <form class='formField' (ngSubmit)="handleUpdate()" method="POST">
+                    <div class='formFieldBanner'>
+                        <h3>Update Employee</h3>
+                    </div>
+                    <table>
+                        <tbody>
+                    
+                            <tr>
+                                <td><label>First Name:</label></td>
+                                <td><input class="input-field" type="text" placeholder="First Name" name="firstName"
+                                    [(ngModel)]="updateEmployee.firstName"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Last Name:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Last Name" name="lastName"
+                                    [(ngModel)]="updateEmployee.lastName"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Gender:</label></td>
+                                <td>
+                                    <select name="gender" [(ngModel)]="updateEmployee.gender" id="gender">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Age:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Age" name="age"
+                                    [(ngModel)]="updateEmployee.age"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Email:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Email" name="email"
+                                    [(ngModel)]="updateEmployee.email"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Phone Number:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Phone Number" name="phoneNumber"
+                                    [(ngModel)]="updateEmployee.phoneNumber">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Hire Date:</label></td>
+                                <td><input class="input-field" type="date" placeholder="Hire Date" name="hireDate" pattern="\d{2}-\d{2}-\d{4}"
+                                    [(ngModel)]="updateEmployee.hireDate"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Salary:</label></td>
+                                <td><input class="input-field" type="text" placeholder="Salary" name="salary"
+                                    [(ngModel)]="updateEmployee.salary"></td>
+                            </tr>
+
+                            <tr>
+                                <td><label>Department:</label></td>
+                                <td>
+                                    <select name="department" [(ngModel)]="updateEmployee.departmentNumber" id="department">
+                                        <option  [value]="department.number" *ngFor="let department of departments">{{department.name}}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="hidden" [(ngModel)]="updateEmployee.employeeId"  name="number">
+                                </td>
+                                <td>
+                                    <input type="button" value="Cancel" class="save" (click) = "cancelCreateEmployee()"/>
+                                    <input type="submit" value="Save" class="save" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<footer></footer>
